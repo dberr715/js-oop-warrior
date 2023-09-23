@@ -40,9 +40,9 @@ class Warrior {
     const health = other_character.health - this.power;
     other_character.health = Math.max(health, 0);
   }
-  updateH(div) {
-    div.textContent = `Current Health: ${this.health}`;
-  }
+  //   updateH(div) {
+  //     div.textContent = `Current Health: ${this.health}`;
+  //   }
 
   alive() {
     if (this.constructor === Zombie) {
@@ -90,27 +90,16 @@ const Zombie1 = new Zombie("Zombie1", "likes brains", 5, 3);
 const Zombie2 = new Zombie("Zombie2", "likes brains", 5, 3);
 const Zombie3 = new Zombie("Zombie3", "likes brains", 5, 3);
 const Zombie4 = new Zombie("Zombie4", "likes brains", 5, 3);
-const Zombie5 = new Zombie("Zombie5", "likes brains", 5, 3);
-const Zombie6 = new Zombie("Zombie6", "likes brains", 5, 3);
-const Zombie7 = new Zombie("Zombie7", "likes brains", 5, 3);
-const Zombie8 = new Zombie("Zombie8", "likes brains", 5, 3);
-const Zombie9 = new Zombie("Zombie9", "likes brains", 5, 3);
-const Zombie10 = new Zombie("Zombie10", "likes brains", 5, 3);
+DrEvil = new Villain(villainName, "likes the color green", 20, 10);
+// const Zombie5 = new Zombie("Zombie5", "likes brains", 5, 3);
+// const Zombie6 = new Zombie("Zombie6", "likes brains", 5, 3);
+// const Zombie7 = new Zombie("Zombie7", "likes brains", 5, 3);
+// const Zombie8 = new Zombie("Zombie8", "likes brains", 5, 3);
+// const Zombie9 = new Zombie("Zombie9", "likes brains", 5, 3);
+// const Zombie10 = new Zombie("Zombie10", "likes brains", 5, 3);
 
 const enemies = [];
-enemies.push(
-  DrEvil,
-  Zombie1,
-  Zombie2,
-  Zombie3,
-  Zombie4,
-  Zombie5,
-  Zombie6,
-  Zombie7,
-  Zombie8,
-  Zombie9,
-  Zombie10
-);
+enemies.push(Zombie1, DrEvil, Zombie2, Zombie3, Zombie4);
 
 //Under Attack
 const heroNextMove = (hero) => {
@@ -185,7 +174,7 @@ const createHeroInput = () => {
 const createVillainInput = () => {
   heroName = document.getElementById("heroInput").value;
   MrFantastic = new Hero(heroName, "likes the color red", 25, 5);
-  MrFantastic.greet(dialogue2);
+  MrFantastic.greet(greeting1);
 
   const villainInputButton = document.createElement("button");
   villainInputButton.id = "villainInputButton";
@@ -214,8 +203,8 @@ const createVillainInput = () => {
 const getVillainValue = () => {
   console.log({ villainName });
   villainName = villainInput.value;
-  DrEvil = new Villain(villainName, "likes the color green", 15, 10);
-  DrEvil.greet(dialogue3);
+  DrEvil = new Villain(villainName, "likes the color green", 25, 10);
+  DrEvil.greet(greeting2);
 };
 const twoFightersStart = () => {
   twoFighterButton = document.createElement("button");
@@ -225,6 +214,15 @@ const twoFightersStart = () => {
 
   twoFighterButton.addEventListener("click", () => {
     removePrevious("twoFighterButton");
+    // Change the src attribute of the image element
+    const newImageSource = "./images/taunting-taunt.gif";
+
+    // Change the src attribute of the image element
+    imageToChange.src = newImageSource;
+    const greetElement1 = document.getElementById("greeting1");
+    greetElement1.textContent = "";
+    const greetElement2 = document.getElementById("greeting2");
+    greetElement2.textContent = "";
 
     setTimeout(() => {
       MrFantastic.announce(DrEvil);
@@ -246,17 +244,36 @@ const loadBattleButtons = () => {
 
   heroAttackVilButton.addEventListener("click", () => {
     MrFantastic.attack(DrEvil);
+    // Change the src attribute of the image element
+    const newImageSource = "./images/slap.gif";
+
+    // Change the src attribute of the image element
+    imageToChange.src = newImageSource;
+
+    updateHealthBars(MrFantastic.health, DrEvil.health);
     const villainHealthDiv = document.getElementById("villainHealth");
     villainHealthDiv.textContent = `Villain Health: ${DrEvil.health} points`;
     const villainHealthBar = document.getElementById("villainHealthBar");
     villainHealthBar.value = DrEvil.health;
-    removePrevious("dialogue2");
-    removePrevious("dialogue3");
-    const dialogue = document.getElementById("dialogue2");
-    dialogue.textContent = `${MrFantastic.characterName} attacks ${DrEvil.characterName} for ${MrFantastic.power} damage!`;
+
+    const dialogue2 = document.getElementById("dialogue2");
+    dialogue2.textContent = `${MrFantastic.characterName} attacks ${DrEvil.characterName} for ${MrFantastic.power} damage!`;
+    // updateHeroHealthBar(5);
     if (DrEvil.health <= 0) {
-      dialogue.textContent += ` ${DrEvil.characterName} has been defeated!`;
+      dialogue2.textContent = ` ${DrEvil.characterName} has been defeated!`;
+      setTimeout(() => {
+        openModal();
+      }, 3000);
+      displayDefeatedModal(DrEvil);
     }
+    const tauntElement = document.getElementById("taunt");
+    tauntElement.textContent = "";
+    const announceElement = document.getElementById("announce");
+    announceElement.textContent = "";
+    const greetElement1 = document.getElementById("greeting1");
+    greetElement1.textContent = "";
+    const greetElement2 = document.getElementById("greeting2");
+    greetElement2.textContent = "";
 
     const heroAttackZombieButton = document.getElementById(
       "heroAttackZombButton"
@@ -268,6 +285,11 @@ const loadBattleButtons = () => {
 
       const message = `${MrFantastic.characterName} attacks ${DrEvil.characterName}'s zombie minions for ${MrFantastic.power} damage! But they are undead, SO THEY CAN NEVER DIE! Useless attack!`;
       dialogue2.textContent = message;
+      // Change the src attribute of the image element
+      const newImageSource = "./images/zombie.gif";
+
+      // Change the src attribute of the image element
+      imageToChange.src = newImageSource;
     });
   });
   heroHealthBar = document.createElement("progress");
@@ -297,10 +319,25 @@ const loadBattleButtons = () => {
     greeting1.textContent = "";
     greeting2.textContent = "";
     taunt.textContent = "";
-    announce.textContent = ""; // Clear existing content
+    announce.textContent = "";
+
+    // Change the src attribute of the image element
+    const newImageSource = "./images/slap.gif";
+
+    // Change the src attribute of the image element
+    imageToChange.src = newImageSource;
 
     const message = `${MrFantastic.characterName} attacks ${DrEvil.characterName}'s zombie minions  But they are undead, SO ATTACK IS USELESS`;
     dialogue2.textContent = message;
+
+    const tauntElement = document.getElementById("taunt");
+    tauntElement.textContent = "";
+    const announceElement = document.getElementById("announce");
+    announceElement.textContent = "";
+    const greetElement1 = document.getElementById("greeting1");
+    greetElement1.textContent = "";
+    const greetElement2 = document.getElementById("greeting2");
+    greetElement2.textContent = "";
   });
 
   fee.appendChild(heroAttackZombButton);
@@ -311,20 +348,104 @@ const loadBattleButtons = () => {
 
   randomEnemyAttackHeroButton.addEventListener("click", () => {
     villainNextMove();
+    updateHealthBars(MrFantastic.health, DrEvil.health);
+    // updateHealthBar(3);
     const heroHealthDiv = document.getElementById("heroHealth");
+    // Change the src attribute of the image element
+    const newImageSource = "./images/NPslap.gif";
 
-// Update the hero health text content
-heroHealthDiv.textContent = `Hero Health: ${MrFantastic.health} points`;
+    // Change the src attribute of the image element
+    imageToChange.src = newImageSource;
+
+    // Update the hero health text content
+    heroHealthDiv.textContent = `Hero Health: ${MrFantastic.health} points`;
     const heroHealthBar = document.getElementById("heroHealthBar");
     heroHealthBar.value = MrFantastic.health;
-    removePrevious("dialogue2");
-    removePrevious("dialogue3");
+
     const dialogue = document.getElementById("dialogue2");
-    dialogue.textContent = `${DrEvil.characterName}'s team attacks ${MrFantastic.characterName} for ${DrEvil.power} damage!`;
+    dialogue.textContent = `${DrEvil.characterName} attacks for ${DrEvil.power} damage or the zombies attack for ${Zombie1.power} damage!`;
     if (MrFantastic.health <= 0) {
-      dialogue.textContent += ` ${MrFantastic.characterName} has been defeated!`;
+      dialogue.textContent = `${MrFantastic.characterName} has been defeated!`;
+      setTimeout(() => {
+        openModal();
+      }, 3000);
+      displayDefeatedModal(MrFantastic);
     }
+
+    const tauntElement = document.getElementById("taunt");
+    tauntElement.textContent = "";
+    const announceElement = document.getElementById("announce");
+    announceElement.textContent = "";
+    const greetElement1 = document.getElementById("greeting1");
+    greetElement1.textContent = "";
+    const greetElement2 = document.getElementById("greeting2");
+    greetElement2.textContent = "";
   });
 };
 
 beginButton.addEventListener("click", createHeroInput);
+
+///MODAL STUFF
+const modal = document.getElementById("victoryModal");
+const modalCloseButton = document.getElementById("modalCloseBtn");
+const modalOverlay = document.querySelector(".modal");
+
+function openModal() {
+  modal.style.display = "block";
+}
+//not currently used, but there if needed
+function closeModal() {
+  modal.style.display = "none";
+}
+
+function isDefeated(warrior) {
+  return warrior.health <= 0;
+}
+function displayDefeatedModal(warrior) {
+  const modalMessage = document.getElementById("modalMessage");
+  modalMessage.textContent = `${warrior.characterName} is defeated!`;
+}
+// function restartGame() {
+//   location.reload();
+// }
+
+modalCloseButton.addEventListener("click", () => {
+  location.reload();
+  console.log("close button linked");
+});
+
+function updateHealthBars(heroHealth, villainHealth) {
+  // Update Hero's health bar
+  const heroHealthBar = document.getElementById("heroHealthBar");
+  heroHealthBar.value = heroHealth;
+
+  // Update Villain's health bar
+  const villainHealthBar = document.getElementById("villainHealthBar");
+  villainHealthBar.value = villainHealth;
+
+  // Update Hero's health value text
+  const heroHealthValue = document.getElementById("heroHealth");
+  heroHealthValue.textContent = `Hero Health: ${heroHealth} points`;
+
+  // Update Villain's health value text
+  const villainHealthValue = document.getElementById("villainHealth");
+  villainHealthValue.textContent = `Villain Health: ${villainHealth} points`;
+}
+
+const imageToChange = document.getElementById("bottomImage");
+
+// //Healthbar update
+// heroHealthBar = document.getElementById("heroHealthBar");
+// const heroHealthFill = document.getElementById("heroHealthFill");
+
+// const updateHeroHealthBar = (health) => {
+//   const percentage = (health / 25) * 100;
+//   heroHealthBar.value = health; // Update the health value
+//   heroHealthFill.style.width = `${percentage}%`;
+// };
+
+// const updateVillainHealthBar = (health) => {
+//   const percentage = (health / 25) * 100;
+//   villainHealthBar.value = health; // Update the health value
+//   villainHealthFill.style.width = `${percentage}%`;
+// };

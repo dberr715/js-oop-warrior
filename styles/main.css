@@ -1,20 +1,17 @@
 body {
-  background-color: #0d3b66;
+  background-color: #39393a;
   text-align: center;
   font-family: cursive;
   color: white;
 }
-p {
-  background-color: hotpink;
-}
 
 h1 {
-  color: #f4d35e;
+  color: #ff8552;
   font-size: 48px;
   font-family: cursive;
 }
 h2 {
-  color: #f4d35e;
+  color: #297373;
   font-size: 30px;
   font-family: cursive;
 }
@@ -24,7 +21,7 @@ button {
   padding: 10px 20px;
   font-size: 16px;
   background-color: faf0ca; /* Change to your desired button color */
-  color: #f95738; /* Text color */
+  color: #0d3b66; /* Text color */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -47,14 +44,14 @@ input {
   width: 75%;
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #f95738;
+  border: 4px solid #ff8552;
   border-radius: 5px;
-  color: #f95738;
-  background-color: #faf0ca;
+  color: #85ffc7;
+  background-color: #297373;
 }
 
 input::placeholder {
-  color: #f95738;
+  color: #85ffc7;
 }
 
 div {
@@ -63,42 +60,29 @@ div {
   font-size: 24px;
 }
 
-#heroHealthBar {
+.health-bar {
   width: 200px;
-  height: 20px; /* Set the height of the progress bar */
+  height: 20px;
   border: 1px solid green;
   background-color: green;
-}
-#heroHealthBar[value] {
-  width: 200px;
-  height: 20px; /* Set the height of the progress bar */
-  border: 1px solid green;
-  background-color: green;
+  position: relative; /* Position relative to contain the health fill div */
 }
 
-#villainHealthBar {
-  width: 200px;
-  height: 20px; /* Set the height of the progress bar */
-  border: 1px solid red;
+.health-fill {
+  height: 100%;
+  width: 100%;
+  background-color: #4caf50;
+  transition: width 0.5s;
+}
+.health-fill.low {
   background-color: red;
 }
 
-#villainHealthBar[value] {
-  width: 200px;
-  height: 20px; /* Set the height of the progress bar */
-  border: 1px solid red;
-  background-color: red;
+.health-fill.moderate {
+  background-color: yellow;
 }
 
-progress[value]::-webkit-progress-bar {
-  background-color: hotpink;
-}
-
-progress[value]::after {
-  content: attr(value) "Hero Health: "; /* Display the percentage */
-  position: absolute;
-  right: 10px;
-}
+/* Adjust the health bar colors based on your health thresholds */
 
 #wrapper {
   display: flex;
@@ -127,14 +111,55 @@ progress[value]::after {
 .health-value {
   width: 100%;
   height: 100%;
-  background-color: #4caf50;
+  background-color: #85ffc7;
   text-align: center;
   line-height: 35px;
-  color: white;
+  color: #297373;
   transition: width 0.5s;
+}
+
+#heroHealthBar,
+#villainHealthBar {
+  width: 200px;
+  height: 20px;
+  border: 1px solid #333;
+  background-color: #ddd;
 }
 
 .dialogue {
   color: white;
   font-family: cursive;
+}
+
+/* Modal container */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Overlay on top of the page content */
+  z-index: 1; /* Place it above everything else */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  overflow: auto; /* Enable scrolling when the content is too long */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #ff8552;
+  margin: 15% auto; /* Center the modal vertically */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
 }

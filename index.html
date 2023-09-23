@@ -16,9 +16,18 @@
 
       <div class="villain-health-bar">
         <div class="health-value" id="villainHealth">
-          Villain Health: 15 points
+          Villain Health: 25 points
         </div>
-        <progress id="villainHealthBar" value="15" max="15"></progress>
+        <progress id="villainHealthBar" value="25" max="25"></progress>
+      </div>
+    </div>
+    <div id="victoryModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Victory!</h2>
+        <p id="modalMessage"></p>
+        <img src="./images/win.gif" alt="Walter White Saying I won gif" />
+        <button id="modalCloseBtn">Play Again</button>
       </div>
     </div>
 
@@ -37,7 +46,11 @@
     <div id="fum"></div>
     <div id="announce"></div>
     <div id="taunt"></div>
-
+    <img
+      src="./images/rumble1.gif"
+      alt="stick figures fighting"
+      id="bottomImage"
+    />
     <script src="./scripts/main.js"></script>
   </body>
 </html>
