@@ -7,15 +7,36 @@
     <link rel="stylesheet" href="./styles/main.css" />
   </head>
   <body>
-    <h1>⚔️Battle Boiiis⚔️</h1>
+    <h1>⚔️Battle On⚔️</h1>
+    <div id="wrapper">
+      <div class="hero-health-bar">
+        <div class="health-value" id="heroHealth">Hero Health: 25 points</div>
+        <progress id="heroHealthBar" value="25" max="25"></progress>
+      </div>
+
+      <div class="villain-health-bar">
+        <div class="health-value" id="villainHealth">
+          Villain Health: 15 points
+        </div>
+        <progress id="villainHealthBar" value="15" max="15"></progress>
+      </div>
+    </div>
+
     <div id="fee"></div>
     <div id="fi"></div>
     <div id="fo"></div>
+    <h2 id="dialogue1" class="dialogue">The battle...<br /></h2>
+    <div id="dialogue2" class="dialogue"></div>
+    <div id="dialogue3" class="dialogue"></div>
+    <div id="dialogue4" class="dialogue"></div>
+    <div id="dialogue5" class="dialogue"></div>
+    <div id="dialogue6" class="dialogue"></div>
+
+    <div id="greeting1"></div>
+    <div id="greeting2"></div>
     <div id="fum"></div>
-    <div id="leedle"></div>
-    <div id="lee"></div>
-    <div id="li"></div>
-    <div id="lo"></div>
+    <div id="announce"></div>
+    <div id="taunt"></div>
 
     <script src="./scripts/main.js"></script>
   </body>
